@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Incidencias - Sistema de Gestión Hotelera</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Sobrescribe solo para incidencias.html */
+        .incidencia pre, .incidencia code {
+            background: #f4f4f4;
+            color: #c0392b;
+            border-radius: 6px;
+            padding: 0.7rem 1rem;
+            font-size: 1rem;
+            font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+            overflow-x: auto;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 1px 4px rgba(42,82,152,0.07);
+            line-height: 1.5;
+            border-left: 4px solid #c0392b;
+            max-width: 100%;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+        .incidencia pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            font-size: inherit;
+            border-radius: 0;
+        }
+        .incidencia code {
+            background: #f4f4f4;
+            color: #c0392b;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 1em;
+            border-left: none;
+            box-shadow: none;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        /* Mejorar visualización de cada incidencia */
+        .incidencia {
+            background: #fff8f6;
+            border-left: 6px solid #c0392b;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(192,57,43,0.07);
+            margin: 2.2rem 0;
+            padding: 1.5rem 2rem 1.5rem 1.5rem;
+            transition: box-shadow 0.2s;
+        }
+        .incidencia:hover {
+            box-shadow: 0 4px 24px rgba(192,57,43,0.13);
+        }
+        .incidencia h3 {
+            margin-top: 0;
+            color: #c0392b;
+        }
+        .incidencia .causa {
+            color: #b94a48;
+            font-weight: bold;
+        }
+        .incidencia .solucion {
+            color: #2980b9;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">Inicio</a>
+        <a href="incidencias.html" class="active">Incidencias</a>
+        <a href="diseño uml.html">Diseño UML</a>
+        <a href="diseño base de datos.html">Diseño Base de Datos</a>
+        <a href="manual.html">Manual de Usuario</a>
+    </nav>
+    <header>
+        <h1>Incidencias</h1>
+        <p>Errores graves posibles en el Sistema de Gestión Hotelera</p>
+    </header>
+    <div class="container">
+        <h2>Incidencias comunes encontradas durante el desarrollo</h2>
+
+        <div class="incidencia">
+            <h3>1. No se puede conectar a la base de datos</h3>
+            <p><span class="causa">Causa:</span> El programa no encuentra el servidor de base de datos porque está apagado o la configuración es incorrecta.</p>
+            <p><span class="solucion">Solución aplicada:</span> Revisé que MySQL estuviera encendido y que el usuario, contraseña y nombre de la base de datos en <code>DatabaseConnection.java</code> fueran correctos.</p>
+            <p><strong>Mensaje visto:</strong> <em>Communications link failure</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// DatabaseConnection.java
+private static final String URL = "jdbc:mysql://localhost:3306/mi_base_incorrecta";
+private static final String USER = "usuario";
+private static final String PASSWORD = "contraseña";
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// DatabaseConnection.java
+private static final String URL = "jdbc:mysql://localhost:3306/dam_bd";
+private static final String USER = "usuariodam";
+private static final String PASSWORD = "usuariodam";
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>2. No se guardan los datos de una persona</h3>
+            <p><span class="causa">Causa:</span> Intenté guardar una persona sin rellenar todos los campos obligatorios, como nombre o documento.</p>
+            <p><span class="solucion">Solución aplicada:</span> Añadí validaciones en la pantalla para que no se pueda guardar si falta algún dato importante.</p>
+            <p><strong>Mensaje visto:</strong> <em>Column 'nombre' cannot be null</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// PersonaDAO.java
+pst.setString(2, persona.getNombre()); // persona.getNombre() es null
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// PrimaryController.java
+if (nombre.isEmpty()) {
+    mostrarAlertaError("Error", "El nombre es obligatorio.");
+    return;
+}
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>3. Error al escribir letras donde van números</h3>
+            <p><span class="causa">Causa:</span> Escribí texto en el campo de salario o capacidad, que solo acepta números.</p>
+            <p><span class="solucion">Solución aplicada:</span> Ahora el programa muestra un mensaje de error si se intenta poner letras en esos campos.</p>
+            <p><strong>Mensaje visto:</strong> <em>NumberFormatException</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// HabitacionController.java
+int capacidad = Integer.parseInt(txtCapacidad.getText()); // txtCapacidad = "dos"
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// HabitacionController.java
+try {
+    int capacidad = Integer.parseInt(txtCapacidad.getText());
+} catch (NumberFormatException e) {
+    mostrarAlertaError("Error", "La capacidad debe ser un número.");
+    return;
+}
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>4. No se puede crear una reserva porque la habitación ya está ocupada</h3>
+            <p><span class="causa">Causa:</span> Intenté reservar una habitación para fechas en las que ya estaba reservada.</p>
+            <p><span class="solucion">Solución aplicada:</span> El sistema ahora avisa si hay solapamiento de fechas y no deja crear la reserva.</p>
+            <p><strong>Mensaje visto:</strong> <em>La habitación ya está reservada durante ese período.</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// ReservaController.java
+// No se verifica el solapamiento de fechas
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// ReservaController.java
+if (modelo.existeSolapamientoReserva(idHabitacion, fechaInicio, fechaFin)) {
+    mostrarAlertaError("Error", "La habitación ya está reservada durante ese período.");
+    return;
+}
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>5. Se borran más datos de los que quería</h3>
+            <p><span class="causa">Causa:</span> Al borrar una persona, también se borraron sus reservas y facturas sin avisar.</p>
+            <p><span class="solucion">Solución aplicada:</span> Ahora el programa pide confirmación antes de borrar y avisa si se eliminarán datos relacionados.</p>
+            <p><strong>Mensaje visto:</strong> <em>¡Atención! Se han eliminado 12 registros relacionados con la persona.</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// PersonaDAO.java
+// Eliminar persona sin confirmación ni advertencia
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// Antes de eliminar
+Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+confirmacion.setHeaderText("¿Estás seguro de eliminar esta persona y sus datos relacionados?");
+if (confirmacion.showAndWait().get() != ButtonType.OK) return;
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>6. El programa se cierra por error NullPointerException</h3>
+            <p><span class="causa">Causa:</span> El programa intentó usar un dato que no estaba cargado (por ejemplo, buscar una persona que no existe).</p>
+            <p><span class="solucion">Solución aplicada:</span> Añadí comprobaciones para evitar que se use información vacía o nula y mostrar un mensaje claro al usuario.</p>
+            <p><strong>Mensaje visto:</strong> <em>NullPointerException</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// ModificarUsuarioController.java
+txtDireccion.setText(personaActual.getDireccion()); // personaActual es null
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// ModificarUsuarioController.java
+if (personaActual == null) {
+    mostrarAlerta("Error", "Debe buscar un usuario antes de modificar.");
+    return;
+}
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>7. No se puede modificar una habitación porque no la seleccioné</h3>
+            <p><span class="causa">Causa:</span> Intenté guardar cambios sin seleccionar una habitación de la lista.</p>
+            <p><span class="solucion">Solución aplicada:</span> Ahora el programa muestra un mensaje si no hay ninguna habitación seleccionada antes de modificar.</p>
+            <p><strong>Mensaje visto:</strong> <em>Por favor, selecciona una habitación.</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// HabitacionController.java
+// No se verifica si hay selección antes de modificar
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// HabitacionController.java
+Habitacion habitacionSeleccionada = listHabitaciones.getSelectionModel().getSelectedItem();
+if (habitacionSeleccionada == null) {
+    mostrarAlertaError("Error", "Por favor, selecciona una habitación.");
+    return;
+}
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>8. No se puede facturar una reserva ya facturada</h3>
+            <p><span class="causa">Causa:</span> Intenté facturar una reserva que ya estaba marcada como facturada.</p>
+            <p><span class="solucion">Solución aplicada:</span> El botón de facturar se desactiva automáticamente si la reserva ya está facturada.</p>
+            <p><strong>Mensaje visto:</strong> <em>Esta reserva ya fue facturada.</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// ReservaController.java
+// El botón de facturar no se desactiva según el estado
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// ReservaController.java
+listReservas.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+    if (newVal != null && "Facturado".equalsIgnoreCase(newVal.getEstado())) {
+        btnFacturar.setDisable(true);
+    }
+});
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>9. No aparecen empleados o tareas en los listados</h3>
+            <p><span class="causa">Causa:</span> Había un error en la consulta SQL o faltaban datos en la base de datos.</p>
+            <p><span class="solucion">Solución aplicada:</span> Revisé las consultas y me aseguré de que los datos estuvieran bien cargados y que los campos fueran correctos.</p>
+            <p><strong>Mensaje visto:</strong> <em>No se pudieron cargar las tareas.</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// TareaDAO.java
+String sql = "SELECT * FROM tareas"; // Nombre de tabla incorrecto
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// TareaDAO.java
+String sql = "SELECT * FROM tarea"; // Nombre de tabla correcto
+</code></pre>
+            </details>
+        </div>
+
+        <div class="incidencia">
+            <h3>10. El sistema deja crear reservas con fechas incorrectas</h3>
+            <p><span class="causa">Causa:</span> El sistema permitía poner una fecha de inicio posterior a la de fin en una reserva.</p>
+            <p><span class="solucion">Solución aplicada:</span> Ahora el programa revisa que la fecha de inicio sea antes o igual que la de fin antes de guardar la reserva.</p>
+            <p><strong>Mensaje visto:</strong> <em>La fecha de inicio no puede ser posterior a la fecha de fin.</em></p>
+            <details>
+                <summary>Ejemplo de código con error</summary>
+                <pre><code>// ReservaController.java
+// No se valida el orden de las fechas
+</code></pre>
+            </details>
+            <details>
+                <summary>Ejemplo de solución</summary>
+                <pre><code>// ReservaController.java
+if (dateFechaInicio.getValue().isAfter(dateFechaFin.getValue())) {
+    mostrarAlertaError("Error", "La fecha de inicio no puede ser posterior a la fecha de fin.");
+    return;
+}
+</code></pre>
+            </details>
+        </div>
+
+    </div>
+    <footer>
+        &copy; 2024 - Sistema de Gestión Hotelera | Desarrollado por Eric Alessi
+    </footer>
+</body>
+</html>

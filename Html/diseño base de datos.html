@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Diseño Base de Datos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ajuste solo para esta página para evitar scroll horizontal en <pre> y .code-block */
+        .container pre,
+        .container .code-block {
+            white-space: pre-line;
+            word-break: break-word;
+            overflow-x: auto;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">Inicio</a>
+        <a href="incidencias.html">Incidencias</a>
+        <a href="diseño uml.html">Diseño UML</a>
+        <a href="diseño base de datos.html" class="active">Diseño Base de Datos</a>
+        <a href="manual.html">Manual de Usuario</a>
+    </nav>
+    <header>
+        <h1>Diseño Base de Datos</h1>
+    </header>
+
+    <div class="container">
+        <h2>Diseño Lógico-Relacional</h2>
+        <pre>
+<b>PERSONA</b> (id_persona, documento_identidad, nombre, apellido, fecha_nacimiento, telefono, email, direccion)
+
+<b>EMPLEADO</b> (id_empleado, id_persona, lugar_trabajo, salario_bruto, estado_laboral, fecha_contratacion)
+Donde (id_persona) es llave ajena que hace referencia a la tabla <b>PERSONA</b> (id_persona).
+
+<b>CLIENTE</b> (id_cliente, id_persona, tipo_cliente, tarjeta_credito, fecha_registro)
+Donde (id_persona) es llave ajena que hace referencia a la tabla <b>PERSONA</b> (id_persona).
+
+<b>TAREA</b> (id_tarea, descripcion, estado, fecha_creacion, fecha_ejecucion)
+
+<b>REALIZAR_TAREA</b> (id_empleado, id_tarea)
+Donde (id_empleado) es llave ajena que hace referencia a la tabla <b>EMPLEADO</b> (id_empleado).
+Donde (id_tarea) es llave ajena que hace referencia a la tabla <b>TAREA</b> (id_tarea).
+
+<b>HABITACION</b> (id_habitacion, numero_habitacion, tipo, capacidad, estado, descripcion, precio_noche_ad, precio_noche_mp)
+
+<b>RESERVA</b> (id_reserva, tipo_reserva, fecha_inicio, fecha_fin, fecha_reserva, precio_total, id_cliente)
+Donde (id_cliente) es llave ajena que hace referencia a la tabla <b>CLIENTE</b> (id_cliente).
+
+<b>ASOCIADO</b> (id_habitacion, id_reserva, date)
+Donde (id_habitacion) es llave ajena que hace referencia a la tabla <b>HABITACION</b> (id_habitacion).
+Donde (id_reserva) es llave ajena que hace referencia a la tabla <b>RESERVA</b> (id_reserva).
+
+<b>FACTURA</b> (id_factura, fecha_emision, metodo_pago, base_imponible, iva, total, id_reserva)
+Donde (id_reserva) es llave ajena que hace referencia a la tabla <b>RESERVA</b> (id_reserva).
+        </pre>
+
+        <h2>Diseño Físico (SQL)</h2>
+        <div class="code-block">
+<span class="sql-section">-- Eliminar base de datos si existe y crearla nuevamente</span>
+<span class="sql-keyword">DROP DATABASE IF EXISTS</span> <span class="sql-db">dam_bd</span>;
+<span class="sql-keyword">CREATE DATABASE</span> <span class="sql-db">dam_bd</span>;
+<span class="sql-keyword">USE</span> <span class="sql-db">dam_bd</span>;
+
+<span class="sql-section">-- Eliminar tablas si existen antes de crearlas nuevamente</span>
+<span class="sql-keyword">DROP TABLE IF EXISTS</span> persona;
+<span class="sql-keyword">DROP TABLE IF EXISTS</span> empleado;
+<span class="sql-keyword">DROP TABLE IF EXISTS</span> cliente;
+<span class="sql-keyword">DROP TABLE IF EXISTS</span> tarea;
+<span class="sql-keyword">DROP TABLE IF EXISTS</span> realizar_tarea;
+<span class="sql-keyword">DROP TABLE IF EXISTS</span> habitacion;
+<span class="sql-keyword">DROP TABLE IF EXISTS</span> reserva;
+<span class="sql-keyword">DROP TABLE IF EXISTS</span> factura;
+
+<span class="sql-section">-- Crear tabla persona</span>
+<span class="sql-keyword">CREATE TABLE</span> persona (
+    id_persona INT PRIMARY KEY AUTO_INCREMENT,
+    documento VARCHAR(20) UNIQUE NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    telefono VARCHAR(15),
+    email VARCHAR(100),
+    direccion VARCHAR(255)
+);
+
+<span class="sql-section">-- Crear tabla empleado</span>
+<span class="sql-keyword">CREATE TABLE</span> empleado (
+    id_empleado INT PRIMARY KEY AUTO_INCREMENT,
+    id_persona INT NOT NULL,
+    lugar_trabajo VARCHAR(100) NOT NULL,
+    salario DECIMAL(10,2) NOT NULL,
+    estado_laboral ENUM('ACTIVO', 'BAJA', 'PERMISO') NOT NULL,
+    fecha_contratacion DATE NOT NULL,
+    FOREIGN KEY (id_persona) REFERENCES persona(id_persona) ON DELETE CASCADE
+);
+
+<span class="sql-section">-- Crear tabla cliente</span>
+<span class="sql-keyword">CREATE TABLE</span> cliente (
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    id_persona INT NOT NULL,
+    tipo_cliente ENUM('REGULAR', 'VIP') NOT NULL,
+    tarjeta_credito VARCHAR(20),
+    fecha_registro DATE NOT NULL,
+    FOREIGN KEY (id_persona) REFERENCES persona(id_persona) ON DELETE CASCADE
+);
+
+<span class="sql-section">-- Crear tabla tarea</span>
+<span class="sql-keyword">CREATE TABLE</span> tarea (
+    id_tarea INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion TEXT NOT NULL,
+    estado ENUM('PENDIENTE', 'COMPLETADA') NOT NULL,
+    fecha_creacion DATE NOT NULL,
+    fecha_ejecucion DATE
+);
+
+<span class="sql-section">-- Crear tabla realizar_tarea (Empleado - Tarea)</span>
+<span class="sql-keyword">CREATE TABLE</span> realizar_tarea (
+    id_empleado INT NOT NULL,
+    id_tarea INT NOT NULL,
+    estado VARCHAR(20) DEFAULT 'PENDIENTE',
+    PRIMARY KEY (id_empleado, id_tarea),
+    FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado) 
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (id_tarea) REFERENCES tarea(id_tarea) 
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+<span class="sql-section">-- Crear tabla habitacion</span>
+<span class="sql-keyword">CREATE TABLE</span> habitacion (
+    id_habitacion INT AUTO_INCREMENT PRIMARY KEY,
+    numero_habitacion VARCHAR(10) NOT NULL UNIQUE,
+    tipo VARCHAR(50) NOT NULL,
+    capacidad INT NOT NULL,
+    estado VARCHAR(20) NOT NULL,
+    descripcion TEXT NOT NULL,
+    precio_noche_ad DECIMAL(10,2) NOT NULL,
+    precio_noche_mp DECIMAL(10,2) NOT NULL
+);
+
+<span class="sql-section">-- Crear tabla reserva</span>
+<span class="sql-keyword">CREATE TABLE</span> reserva (
+    id_reserva INT PRIMARY KEY,
+    tipo_reserva VARCHAR(50) NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    fecha_reserva DATE NOT NULL,
+    precio_total DECIMAL(10,2) NOT NULL,
+    id_cliente INT,
+    id_habitacion INT,
+    estado VARCHAR(50) DEFAULT 'Pendiente de facturar',
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente) 
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (id_habitacion) REFERENCES habitacion(id_habitacion)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+<span class="sql-section">-- Crear tabla factura</span>
+<span class="sql-keyword">CREATE TABLE</span> factura (
+    id_factura INT AUTO_INCREMENT PRIMARY KEY,
+    fecha_emision DATE NOT NULL,
+    metodo_pago VARCHAR(50) NOT NULL,
+    base_imponible DECIMAL(10,2) NOT NULL,
+    iva DECIMAL(10,2) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    id_reserva INT,
+    FOREIGN KEY(id_reserva) REFERENCES reserva(id_reserva) 
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Inserts de Ejemplo</h2>
+        <div class="code-block">
+<span class="sql-section">-- Personas</span>
+INSERT INTO persona (documento, nombre, apellido, fecha_nacimiento, telefono, email, direccion) VALUES
+('12345678A', 'Juan', 'Pérez', '1980-05-10', '600123456', 'juan.perez@email.com', 'Calle Mayor 1'),
+('87654321B', 'Ana', 'López', '1990-08-22', '600654321', 'ana.lopez@email.com', 'Avenida Sol 15'),
+('11223344C', 'Carlos', 'Ruiz', '1985-12-01', '600112233', 'carlos.ruiz@email.com', 'Plaza Luna 3'),
+('22334455D', 'Laura', 'Martínez', '1992-03-17', '600223344', 'laura.martinez@email.com', 'Calle Río 8');
+
+<span class="sql-section">-- Empleados</span>
+INSERT INTO empleado (id_persona, lugar_trabajo, salario, estado_laboral, fecha_contratacion) VALUES
+(1, 'Recepción', 1800.00, 'ACTIVO', '2020-01-15'),
+(3, 'Limpieza', 1400.00, 'ACTIVO', '2021-06-01');
+
+<span class="sql-section">-- Clientes</span>
+INSERT INTO cliente (id_persona, tipo_cliente, tarjeta_credito, fecha_registro) VALUES
+(2, 'VIP', '4111111111111111', '2022-02-10'),
+(4, 'REGULAR', '4222222222222222', '2023-04-20');
+
+<span class="sql-section">-- Habitaciones</span>
+INSERT INTO habitacion (numero_habitacion, tipo, capacidad, estado, descripcion, precio_noche_ad, precio_noche_mp) VALUES
+('101', 'INDIVIDUAL', 1, 'DISPONIBLE', 'Habitación individual con baño privado', 50.00, 65.00),
+('102', 'DOBLE', 2, 'OCUPADA', 'Habitación doble con vistas al mar', 80.00, 100.00),
+('201', 'SUITE', 3, 'DISPONIBLE', 'Suite con jacuzzi', 150.00, 180.00);
+
+<span class="sql-section">-- Tareas</span>
+INSERT INTO tarea (descripcion, estado, fecha_creacion, fecha_ejecucion) VALUES
+('Limpiar habitación 101', 'PENDIENTE', '2024-06-01', NULL),
+('Reponer toallas en 102', 'COMPLETADA', '2024-06-02', '2024-06-03');
+
+<span class="sql-section">-- Asignación de tareas</span>
+INSERT INTO realizar_tarea (id_empleado, id_tarea, estado) VALUES
+(1, 1, 'PENDIENTE'),
+(2, 2, 'COMPLETADA');
+
+<span class="sql-section">-- Reservas</span>
+INSERT INTO reserva (id_reserva, tipo_reserva, fecha_inicio, fecha_fin, fecha_reserva, precio_total, id_cliente, id_habitacion, estado) VALUES
+(1, 'AD', '2024-06-10', '2024-06-15', '2024-06-01', 250.00, 1, 1, 'Facturado'),
+(2, 'MP', '2024-07-01', '2024-07-05', '2024-06-20', 400.00, 2, 2, 'Pendiente de facturar');
+
+<span class="sql-section">-- Facturas</span>
+INSERT INTO factura (fecha_emision, metodo_pago, base_imponible, iva, total, id_reserva) VALUES
+('2024-06-15', 'Tarjeta de Crédito', 250.00, 52.50, 302.50, 1);
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 - Sistema de Gestión Hotelera | Desarrollado por Eric Alessi
+    </footer>
+</body>
+</html>

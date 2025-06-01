@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Manual de Usuario - Sistema de Gestión Hotelera</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">Inicio</a>
+        <a href="incidencias.html">Incidencias</a>
+        <a href="diseño uml.html">Diseño UML</a>
+        <a href="diseño base de datos.html">Diseño Base de Datos</a>
+        <a href="manual.html" class="active">Manual de Usuario</a>
+    </nav>
+    <header>
+        <h1>Manual de Usuario</h1>
+        <p class="manual-subtitle">
+            <span class="manual-icon">🏨</span>
+            Sistema de Gestión Hotelera
+        </p>
+    </header>
+    <section>
+        <div class="manual-section">
+            <h2><span class="manual-icon">👶</span> Guía rápida </h2>
+            <ol class="manual-step-list manual-step-list-spaced">
+                <li>
+                    <div class="manual-step-content">
+                        <span class="manual-icon">🏠</span>
+                        <strong>Pantalla de bienvenida:</strong>
+                        <ul class="manual-step-ul-spaced">
+                            <li>Al abrir la aplicación, verás un menú con botones para cada módulo: Personas, Habitaciones, Reservas, Tareas y Facturación.</li>
+                            <li>Haz clic en el módulo que quieras gestionar.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="manual-step-content">
+                        <span class="manual-icon">👤</span>
+                        <strong>Agregar personas (clientes y empleados):</strong>
+                        <ul class="manual-step-ul-spaced">
+                            <li>Selecciona si quieres registrar un Cliente, Empleado o Ambos.</li>
+                            <li>Rellena los datos obligatorios (nombre, apellido, documento, etc.).</li>
+                            <li>Pulsa <span class="manual-highlight">Agregar</span> para guardar.</li>
+                            <li>Para modificar, busca por documento, selecciona y edita los datos, luego pulsa <span class="manual-highlight">Guardar Cambios</span>.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="manual-step-content">
+                        <span class="manual-icon">🛏️</span>
+                        <strong>Gestionar habitaciones:</strong>
+                        <ul class="manual-step-ul-spaced">
+                            <li>Rellena los datos de la habitación y pulsa <span class="manual-highlight">Crear</span>.</li>
+                            <li>Para modificar o eliminar, selecciona una habitación de la lista y usa los botones correspondientes.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="manual-step-content">
+                        <span class="manual-icon">📅</span>
+                        <strong>Crear y facturar reservas:</strong>
+                        <ul class="manual-step-ul-spaced">
+                            <li>Selecciona habitación, cliente, tipo de reserva y fechas.</li>
+                            <li>El sistema calcula el precio automáticamente.</li>
+                            <li>Pulsa <span class="manual-highlight">Crear Reserva</span>.</li>
+                            <li>
+                                Para facturar:
+                                <ul>
+                                    <li>Selecciona la reserva y pulsa <span class="manual-highlight">Facturar</span>.</li>
+                                    <li>Elige el método de pago y confirma.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="manual-step-content">
+                        <span class="manual-icon">📝</span>
+                        <strong>Gestionar tareas:</strong>
+                        <ul class="manual-step-ul-spaced">
+                            <li>Crea tareas con descripción y fechas.</li>
+                            <li>Asigna tareas a empleados y marca como completadas cuando terminen.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="manual-step-content">
+                        <span class="manual-icon">💡</span>
+                        <strong>Consejos útiles:</strong>
+                        <ul class="manual-step-ul-spaced">
+                            <li>Los campos obligatorios están marcados o son requeridos para guardar.</li>
+                            <li>Si tienes dudas, pasa el ratón sobre los botones para ver una breve descripción.</li>
+                            <li>El sistema te avisará si intentas hacer algo incorrecto (por ejemplo, reservar una habitación ya ocupada).</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="manual-step-content">
+                        <span class="manual-icon">❗</span>
+                        <strong>¿Ves un error?</strong>
+                        <ul class="manual-step-ul-spaced">
+                            <li>Lee el mensaje en pantalla y revisa los campos.</li>
+                            <li>Si el problema persiste, consulta la sección de incidencias o pide ayuda a soporte.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <div class="manual-section">
+            <h2><span class="manual-icon">❓</span> ¿Qué es este programa?</h2>
+            <p>
+                <span class="manual-highlight">Sistema de Gestión Hotelera</span> es una aplicación de escritorio moderna y fácil de usar, desarrollada en JavaFX, que permite gestionar clientes, empleados, habitaciones, reservas, tareas y facturación de manera centralizada y eficiente.
+            </p>
+            <div class="manual-feature-list">
+                <div class="manual-feature">
+                    <span class="manual-icon">👤</span>
+                    <strong>Personas</strong>
+                    <ul>
+                        <li>Alta y modificación de clientes y empleados</li>
+                        <li>Validación y búsqueda rápida</li>
+                    </ul>
+                </div>
+                <div class="manual-feature">
+                    <span class="manual-icon">🛏️</span>
+                    <strong>Habitaciones</strong>
+                    <ul>
+                        <li>Creación y edición</li>
+                        <li>Control de estado y precios</li>
+                    </ul>
+                </div>
+                <div class="manual-feature">
+                    <span class="manual-icon">📅</span>
+                    <strong>Reservas</strong>
+                    <ul>
+                        <li>Evita solapamientos</li>
+                        <li>Cálculo automático de precios</li>
+                    </ul>
+                </div>
+                <div class="manual-feature">
+                    <span class="manual-icon">📝</span>
+                    <strong>Tareas</strong>
+                    <ul>
+                        <li>Asignación y seguimiento</li>
+                        <li>Filtros y búsqueda avanzada</li>
+                    </ul>
+                </div>
+                <div class="manual-feature">
+                    <span class="manual-icon">💳</span>
+                    <strong>Facturación</strong>
+                    <ul>
+                        <li>IVA y descuentos automáticos</li>
+                        <li>Actualización de estado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="manual-section">
+            <h2><span class="manual-icon">🚦</span> ¿Cómo funciona? - Pasos principales</h2>
+            <ol class="manual-step-list">
+                <li>
+                    <span class="manual-icon">🏠</span>
+                    <strong>Inicio y navegación:</strong>
+                    <ul>
+                        <li>Desde el menú principal accede a cada módulo.</li>
+                        <li>La navegación es lateral e intuitiva.</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="manual-icon">👤</span>
+                    <strong>Gestión de Personas:</strong>
+                    <ul>
+                        <li>Registra clientes, empleados o ambos.</li>
+                        <li>Validación automática de datos.</li>
+                        <li>Modifica y busca usuarios fácilmente.</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="manual-icon">🛏️</span>
+                    <strong>Gestión de Habitaciones:</strong>
+                    <ul>
+                        <li>Crea habitaciones con tipo, capacidad y precios.</li>
+                        <li>El estado se actualiza según reservas y limpieza.</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="manual-icon">📅</span>
+                    <strong>Gestión de Reservas:</strong>
+                    <ul>
+                        <li>Selecciona habitación, cliente y fechas.</li>
+                        <li>Evita solapamientos y calcula el precio.</li>
+                        <li>Facturación integrada.</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="manual-icon">📝</span>
+                    <strong>Gestión de Tareas:</strong>
+                    <ul>
+                        <li>Crea y asigna tareas a empleados.</li>
+                        <li>Marca tareas como completadas.</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="manual-icon">💳</span>
+                    <strong>Facturación:</strong>
+                    <ul>
+                        <li>Genera facturas con IVA y descuentos.</li>
+                        <li>Actualiza el estado de la reserva automáticamente.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="manual-section">
+            <h2><span class="manual-icon">🔄</span> Flujo de uso típico</h2>
+            <div class="manual-flow">
+                <div class="manual-flow-step"><span class="manual-icon">👤</span> Registrar personas</div>
+                <div class="manual-flow-step"><span class="manual-icon">🛏️</span> Crear habitaciones</div>
+                <div class="manual-flow-step"><span class="manual-icon">📅</span> Realizar reservas</div>
+                <div class="manual-flow-step"><span class="manual-icon">📝</span> Asignar tareas</div>
+                <div class="manual-flow-step"><span class="manual-icon">💳</span> Facturar reservas</div>
+            </div>
+        </div>
+
+        <div class="manual-section">
+            <h2><span class="manual-icon">⚙️</span> Detalles técnicos y consideraciones</h2>
+            <table class="manual-table">
+                <tr>
+                    <th>Módulo</th>
+                    <th>Detalles</th>
+                </tr>
+                <tr>
+                    <td>Lenguaje y Framework</td>
+                    <td>Java 17, JavaFX, JDBC para MySQL</td>
+                </tr>
+                <tr>
+                    <td>Base de datos</td>
+                    <td>Modelo relacional, integridad referencial, DAOs</td>
+                </tr>
+                <tr>
+                    <td>Validaciones</td>
+                    <td>En formularios y mensajes claros al usuario</td>
+                </tr>
+                <tr>
+                    <td>Interfaz</td>
+                    <td>Moderna, responsiva y navegación intuitiva</td>
+                </tr>
+                <tr>
+                    <td>Seguridad</td>
+                    <td>Confirmaciones antes de eliminar, control de errores</td>
+                </tr>
+            </table>
+            <div class="manual-tip">
+                <span class="manual-icon">💡</span>
+                <strong>Consejo:</strong> Usa los filtros y búsquedas para encontrar rápidamente personas, habitaciones o tareas. El sistema siempre pedirá confirmación antes de eliminar datos importantes.
+            </div>
+        </div>
+
+        <div class="manual-section">
+            <h2><span class="manual-icon">❔</span> Preguntas frecuentes</h2>
+            <ul>
+                <li><strong>¿Puedo registrar a una persona como cliente y empleado a la vez?</strong><br>
+                    Sí, seleccionando la opción <span class="manual-highlight">Ambos</span> al registrar la persona.</li>
+                <li><strong>¿Cómo se calcula el precio de una reserva?</strong><br>
+                    Automáticamente según el tipo de reserva (AD o MP), la duración y el tipo de cliente.</li>
+                <li><strong>¿Qué sucede si intento reservar una habitación ya ocupada?</strong><br>
+                    El sistema no permite solapamientos y te avisará si la habitación ya está reservada en esas fechas.</li>
+                <li><strong>¿Puedo aplicar descuentos en la facturación?</strong><br>
+                    Sí, si el método de pago es efectivo, se aplica un descuento automático del 10%.</li>
+                <li><strong>¿Cómo se gestionan las tareas?</strong><br>
+                    Puedes crear tareas, asignarlas a empleados y marcar su estado. El sistema actualiza automáticamente el estado global cuando todos los empleados la completan.</li>
+            </ul>
+        </div>
+
+        <a class="button" href="#" onclick="window.print();return false;">Imprimir documentación</a>
+    </section>
+    <footer>
+        &copy; 2024 - Sistema de Gestión Hotelera | Desarrollado por Eric Alessi
+    </footer>
+</body>
+</html>
