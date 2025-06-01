@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="413.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.practicabasededatos.FacturaController">
+    <children>
+        <!-- Detalles de la Reserva -->
+        <Label layoutX="20.0" layoutY="20.0" text="Número de Reserva:" />
+        <Label fx:id="lblNumeroReserva" layoutX="150.0" layoutY="20.0" />
+
+        <Label layoutX="20.0" layoutY="50.0" text="Cliente:" />
+        <Label fx:id="lblCliente" layoutX="150.0" layoutY="50.0" />
+
+        <Label layoutX="20.0" layoutY="80.0" text="Fecha Inicio:" />
+        <Label fx:id="lblFechaInicio" layoutX="150.0" layoutY="80.0" />
+
+        <Label layoutX="20.0" layoutY="110.0" text="Fecha Fin:" />
+        <Label fx:id="lblFechaFin" layoutX="150.0" layoutY="110.0" />
+
+        <Label layoutX="20.0" layoutY="140.0" text="Total Días:" />
+        <Label fx:id="lblTotalDias" layoutX="150.0" layoutY="140.0" />
+
+        <!-- Cálculo de Precios -->
+        <Label layoutX="20.0" layoutY="170.0" text="Precio Base:" />
+        <Label fx:id="lblPrecioBase" layoutX="150.0" layoutY="170.0" />
+
+        <Label layoutX="20.0" layoutY="200.0" text="IVA:" />
+        <Label fx:id="lblIva" layoutX="150.0" layoutY="200.0" />
+
+        <Label layoutX="20.0" layoutY="230.0" text="Precio Total:" />
+        <Label fx:id="lblPrecioTotal" layoutX="150.0" layoutY="230.0" />
+      <Label fx:id="lblDescuento" layoutX="218.0" layoutY="230.0" />
+
+        <!-- Método de Pago -->
+        <Label layoutX="20.0" layoutY="270.0" text="Método de Pago:" />
+        <ComboBox fx:id="cmbMetodoPago" layoutX="150.0" layoutY="270.0" prefWidth="200.0" />
+
+        <!-- Botones -->
+        <Button layoutX="50.0" layoutY="310.0" onAction="#crearFactura" text="Crear Factura" />
+        <Button layoutX="200.0" layoutY="310.0" onAction="#cerrarVentana" text="Cerrar" />
+    </children>
+</AnchorPane>

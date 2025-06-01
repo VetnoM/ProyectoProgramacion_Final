@@ -1,0 +1,8 @@
+{
+    .text-field.error, .combo-box.error, .date-picker.error {
+    -fx-border-color: red;
+    -fx-border-width: 2px;
+    -fx-background-color: #ffe5e5;
+}
+
+    

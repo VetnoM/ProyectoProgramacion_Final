@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.practicabasededatos.ModificarUsuarioController">
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="10">
+            <children>
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Modificar Usuario" />
+
+                <!-- Sección de búsqueda -->
+                <HBox spacing="10">
+                    <Label text="Documento:" />
+                    <TextField fx:id="txtDocumento" promptText="Ingrese el documento" />
+                    <Button onAction="#buscarUsuariosPorDocumento" text="Buscar" />
+                </HBox>
+
+                <ListView fx:id="listViewUsuarios" onMouseClicked="#buscarUsuario" prefHeight="100" />
+
+                <Separator />
+
+                <!-- Datos Persona -->
+                <HBox spacing="10">
+                    <Label text="Dirección:" />
+                    <TextField fx:id="txtDireccion" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="Correo:" />
+                    <TextField fx:id="txtCorreo" />
+                </HBox>
+
+                <Separator />
+
+                <!-- Datos Cliente -->
+                <HBox spacing="10">
+                    <Label text="Tipo Cliente:" />
+                    <ComboBox fx:id="cmbTipoCliente" />
+                </HBox>
+
+                <Separator />
+
+                <!-- Datos Empleado -->
+                <HBox spacing="10">
+                    <Label text="Salario:" />
+                    <TextField fx:id="txtSalario" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="Lugar Trabajo:" />
+                    <TextField fx:id="txtLugarTrabajo" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="Estado Laboral:" />
+                    <ComboBox fx:id="cmbEstadoLaboral" />
+                </HBox>
+
+                <Separator />
+
+                <!-- Botones -->
+                <HBox prefHeight="43.0" prefWidth="799.0" spacing="10">
+                    <Button onAction="#guardarCambios" text="Guardar Cambios" />
+                    <Button text="Cancelar" />
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

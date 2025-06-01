@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.practicabasededatos.PrimaryController">
+   <children>
+      <SplitPane dividerPositions="0.7204724409448819" layoutX="169.0" layoutY="254.0" orientation="VERTICAL" prefHeight="764.0" prefWidth="1018.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="1016.0">
+               <children>
+                  <GridPane prefHeight="527.0" prefWidth="1018.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Pane prefHeight="286.0" prefWidth="880.0">
+                           <children>
+                              <Label layoutX="27.0" layoutY="22.0" text="Alta de Usuario">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cmbTipoPersona" layoutX="115.0" layoutY="86.0" prefWidth="150.0" />
+                              <Label layoutX="20.0" layoutY="90.0" text="Indique el tipo" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="337.0" prefWidth="449.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="tituloEmpleado" layoutX="349.0" layoutY="14.0" text="Datos Empleado">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblLugarTrabajo" layoutX="34.0" layoutY="52.0" text="Lugar de trabajo" />
+                              <TextField fx:id="txtLugarTrabajo" layoutX="134.0" layoutY="48.0" />
+                              <Label fx:id="lblSalario" layoutX="78.0" layoutY="83.0" text="Salario" />
+                              <TextField fx:id="txtSalario" layoutX="134.0" layoutY="79.0" />
+                              <Label fx:id="lblEstadoLaboral" layoutX="46.0" layoutY="115.0" text="Estado laboral" />
+                              <ComboBox fx:id="cmbEstadoLaboral" layoutX="133.0" layoutY="111.0" prefWidth="150.0" />
+                              <Label fx:id="lblFechaContratacion" layoutX="27.0" layoutY="147.0" text="Fecha Contratacion" />
+                              <DatePicker fx:id="dpFechaContratacion" layoutX="134.0" layoutY="143.0" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label layoutX="97.0" layoutY="36.0" text="Nombre" />
+                              <Label layoutX="97.0" layoutY="73.0" text="Apellido" />
+                              <Label layoutY="105.0" text="Documento de indentidad" />
+                              <Label layoutX="96.0" layoutY="141.0" text="Telefono" />
+                              <Label layoutX="42.0" layoutY="180.0" text="Correo electronico" />
+                              <Label layoutX="94.0" layoutY="215.0" text="Direccion" />
+                              <TextField fx:id="txtNombre" layoutX="143.0" layoutY="29.0" />
+                              <TextField fx:id="txtApellido" layoutX="143.0" layoutY="69.0" />
+                              <TextField fx:id="txtDocumento" layoutX="143.0" layoutY="101.0" />
+                              <TextField fx:id="txtTelefono" layoutX="143.0" layoutY="137.0" />
+                              <TextField fx:id="txtEmail" layoutX="143.0" layoutY="176.0" />
+                              <TextField fx:id="txtDireccion" layoutX="143.0" layoutY="211.0" />
+                              <Label layoutX="373.0" layoutY="11.0" text="Datos generales">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dpFechaNacimiento" layoutX="335.0" layoutY="211.0" />
+                              <Label layoutX="373.0" layoutY="189.0" text="Fecha de Nacimiento" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="6.0" prefWidth="509.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="tituloCliente" layoutX="359.0" layoutY="8.0" text="Datos Cliente">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblTipoCliente" layoutX="83.0" layoutY="56.0" text="Tipo de cliente" />
+                              <ComboBox fx:id="cmbTipoCliente" layoutX="171.0" layoutY="52.0" prefWidth="150.0" />
+                              <Label fx:id="lblTarjetaCredito" layoutX="35.0" layoutY="94.0" text="Numero Tarjeta Credito" />
+                              <TextField fx:id="txtTarjetaCredito" layoutX="172.0" layoutY="90.0" />
+                              <DatePicker fx:id="dpFechaRegistro" layoutX="172.0" layoutY="124.0" />
+                              <Label fx:id="lblFechaRegistro" layoutX="68.0" layoutY="128.0" text="Fecha de registro" />
+                              <Button layoutX="389.0" layoutY="224.0" mnemonicParsing="false" onAction="#agregarUsuario" text="Agregar usuario" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <ListView fx:id="listPersonas" layoutX="139.0" onEditStart="#initialize" prefHeight="210.0" prefWidth="494.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="522.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="589.0" layoutY="36.0" mnemonicParsing="false" onAction="#actualizarLista" text="Listar" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
